@@ -1,5 +1,10 @@
 FROM ubuntu:20.04
 
+# Build-time argument
+# it will only happen when we build
+# Prevents prompts from popping up during build (we build a Docker image, not install)
+ARG DEBIAN_FRONTEND="noninteractive"
+
 # Each blue FROM RUN, etc is a step
 # and Docker will cache deps at each step
 
@@ -12,10 +17,9 @@ FROM ubuntu:20.04
 # apt-get makes sure it has a local list of all the packages
 # gets the lastest list or registry of packages
 
-# DEBIAN_FRONTEND="noninteractive"
-# Prevents prompts from popping up during build (we build a Docker image, not install)
 
-RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+
+RUN apt-get update && apt-get install -y \
   # Development utilities
   # You would think they would have these
   # but Ubuntu base image tries to stay as slim as possible
@@ -41,7 +45,8 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
   # Language support
   locales \
   gnupg \
-  jq 
+  jq \
+  zsh
 
 # Install the desired Node.js version into `/usr/local/`
 ENV NODE_VERSION=14.17.6
@@ -62,7 +67,7 @@ RUN apt-get update && apt-get install -y yarn
 # Add stuff from Joe's install command
 
 # code-server dependencies
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+RUN apt-get install -y \
   pkg-config \
   libsecret-1-dev \
   libx11-dev \
@@ -70,11 +75,16 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y \
   python
 
 # Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y 
+ENV RUSTUP_HOME=$HOME/bin/rustup
+ENV CARGO_HOME=$HOME/bin/cargo
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH=$PATH:/home/coder/bin/cargo/bin  
+ENV PATH=$PATH:/home/coder/bin/rustup/bin  
 
 # Install Deno
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y unzip
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh
+RUN apt-get install -y unzip
+# We have to do this in Coder because otherwise Deno will be installed in the wrong place
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh && mv /root/.deno/bin/deno /bin/deno
 
 # Install Go
 # copied from https://github.com/cdr/enterprise-images/blob/main/images/golang/Dockerfile.ubuntu
