@@ -119,3 +119,9 @@ USER coder
 # Two ways to do this
 # 1. Connect to DockerHub -> they do it automatically like Vercel
 # 2. GitHub Actions (better for a custom or "production" workflow)
+
+# Neovim stuff
+RUN apt install -y software-properties-common && \ 
+  apt update && add-apt-repository --yes ppa:neovim-ppa/unstable && \
+  apt-get install -y neovim
+
