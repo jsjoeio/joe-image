@@ -92,6 +92,11 @@ RUN curl -fsSL https://deno.land/x/install/install.sh | sh && mv /root/.deno/bin
 # Install go1.15
 RUN curl -L "https://dl.google.com/go/go1.15.3.linux-amd64.tar.gz" | tar -C /usr/local -xzvf -
 
+# Neovim stuff
+RUN apt install -y software-properties-common && \ 
+  apt update && add-apt-repository --yes ppa:neovim-ppa/unstable && \
+  apt-get install -y neovim
+
 # Setup go env vars
 ENV GOROOT /usr/local/go
 ENV PATH $PATH:$GOROOT/bin
@@ -120,8 +125,4 @@ USER coder
 # 1. Connect to DockerHub -> they do it automatically like Vercel
 # 2. GitHub Actions (better for a custom or "production" workflow)
 
-# Neovim stuff
-RUN apt install -y software-properties-common && \ 
-  apt update && add-apt-repository --yes ppa:neovim-ppa/unstable && \
-  apt-get install -y neovim
 
