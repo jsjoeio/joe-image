@@ -46,7 +46,8 @@ RUN apt-get update && apt-get install -y \
   locales \
   gnupg \
   jq \
-  zsh
+  zsh \
+  neovim
 
 # Install the desired Node.js version into `/usr/local/`
 ENV NODE_VERSION=14.17.6
@@ -72,8 +73,7 @@ RUN apt-get install -y \
   libsecret-1-dev \
   libx11-dev \
   libxkbfile-dev \ 
-  python \
-  neovim
+  python 
 
 # Install Rust
 ENV RUSTUP_HOME=$HOME/bin/rustup
