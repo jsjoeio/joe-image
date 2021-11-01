@@ -45,9 +45,7 @@ RUN apt-get update && apt-get install -y \
   # Language support
   locales \
   gnupg \
-  jq \
-  zsh \
-  neovim
+  jq 
 
 # Install the desired Node.js version into `/usr/local/`
 ENV NODE_VERSION=14.17.6
@@ -91,11 +89,6 @@ RUN curl -fsSL https://deno.land/x/install/install.sh | sh && mv /root/.deno/bin
 # copied from https://github.com/cdr/enterprise-images/blob/main/images/golang/Dockerfile.ubuntu
 # Install go1.15
 RUN curl -L "https://dl.google.com/go/go1.15.3.linux-amd64.tar.gz" | tar -C /usr/local -xzvf -
-
-# Neovim stuff
-RUN apt install -y software-properties-common && \ 
-  apt update && add-apt-repository --yes ppa:neovim-ppa/unstable && \
-  apt-get install -y neovim
 
 # Setup go env vars
 ENV GOROOT /usr/local/go
