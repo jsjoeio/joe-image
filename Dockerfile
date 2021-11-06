@@ -87,8 +87,8 @@ RUN curl -fsSL https://deno.land/x/install/install.sh | sh && mv /root/.deno/bin
 
 # Install Go
 # copied from https://github.com/cdr/enterprise-images/blob/main/images/golang/Dockerfile.ubuntu
-# Install go1.15
-RUN curl -L "https://dl.google.com/go/go1.15.3.linux-amd64.tar.gz" | tar -C /usr/local -xzvf -
+# Install go1.17.1
+RUN curl -L "https://dl.google.com/go/go1.17.1.linux-amd64.tar.gz" | tar -C /usr/local -xzvf -
 
 # Setup go env vars
 ENV GOROOT /usr/local/go
