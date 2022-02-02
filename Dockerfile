@@ -17,8 +17,6 @@ ARG DEBIAN_FRONTEND="noninteractive"
 # apt-get makes sure it has a local list of all the packages
 # gets the lastest list or registry of packages
 
-
-
 RUN apt-get update && apt-get install -y \
   # Development utilities
   # You would think they would have these
@@ -97,6 +95,15 @@ ENV PATH $PATH:$GOROOT/bin
 ENV GOPATH /home/coder/go
 ENV GOBIN $GOPATH/bin
 ENV PATH $PATH:$GOBIN
+
+# Download all VS Code extensions
+RUN mkdir -p /vsix \
+    && cd /vsix \
+    && wget -q https://open-vsx.org/api/vscjava/vscode-java-pack/0.21.0/file/vscjava.vscode-java-pack-0.21.0.vsix \
+    && wget -q https://open-vsx.org/api/Pivotal/vscode-boot-dev-pack/0.1.0/file/Pivotal.vscode-boot-dev-pack-0.1.0.vsix
+
+# Add configure script
+COPY coder/configure /coder/configure
 
 # Add a user `coder` so that you're not developing as the `root` user
 # Makes it feel like "local" laptop experience
