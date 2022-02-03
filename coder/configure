@@ -11,8 +11,10 @@ main() {
     # vsix extensions we downloaded ahead of time
     for path_to_ext in "$EXT_DIR"/* ; do
             ext_name="${path_to_ext#*/}"
-            ext_name_without_suffix="${ext_name%.vsix}"
-            installed_ext_dir_path="$EXTENSIONS_DIR/$ext_name_without_suffix" 
+            ext_name_without_suffix="$(basename ${ext_name} .vsix)"
+            # When extensions get installed, their names are lowercased
+            lowercased_ext_name_without_suffix="${ext_name_without_suffix,,}"
+            installed_ext_dir_path="$EXTENSIONS_DIR/$lowercased_ext_name_without_suffix" 
 
             # Check if installed already
             if [ -d "$installed_ext_dir_path" ]; then
@@ -25,15 +27,9 @@ main() {
 
     # Check if we need to install any extensions
     if [ -n "$EXTENSION_INSTALL_FLAGS" ]; then
-        echo "need to install extensions"
+        echo "Need to install extensions..."
         /var/tmp/coder/code-server/bin/code-server $EXTENSION_INSTALL_FLAGS
     fi
 }
-
-echo "Here is the current working directory"
-pwd
-echo "Here are the files inside it"
-ls
-echo "This is not the $HOME you're looking for"
 
 main
