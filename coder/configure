@@ -3,7 +3,7 @@ set -euo pipefail
 
 EXT_DIR="/vsix"
 EXTENSION_INSTALL_FLAGS=""
-EXTENSIONS_DIR="$HOME/.local/share/code-server/extensions"
+EXTENSIONS_DIR="/home/coder/.local/share/code-server/extensions"
 
 main() {
     echo "Checking extensions bundled with image..."
@@ -29,5 +29,11 @@ main() {
         /var/tmp/coder/code-server/bin/code-server $EXTENSION_INSTALL_FLAGS
     fi
 }
+
+echo "Here is the current working directory"
+pwd
+echo "Here are the files inside it"
+ls
+echo "This is not the $HOME you're looking for"
 
 main
