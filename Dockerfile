@@ -99,8 +99,7 @@ ENV PATH $PATH:$GOBIN
 # Download all VS Code extensions
 RUN mkdir -p /vsix \
     && cd /vsix \
-    && wget -q https://open-vsx.org/api/vscjava/vscode-java-pack/0.21.0/file/vscjava.vscode-java-pack-0.21.0.vsix \
-    && wget -q https://open-vsx.org/api/Pivotal/vscode-boot-dev-pack/0.1.0/file/Pivotal.vscode-boot-dev-pack-0.1.0.vsix
+    && wget -q https://open-vsx.org/api/vscodevim/vim/1.21.10/file/vscodevim.vim-1.21.10.vsix 
 
 # Add configure script
 COPY coder/configure /coder/configure
