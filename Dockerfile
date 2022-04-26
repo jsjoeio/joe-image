@@ -69,7 +69,8 @@ RUN apt-get install -y \
   libsecret-1-dev \
   libx11-dev \
   libxkbfile-dev \ 
-  python 
+  python \
+  quilt 
 
 # Install Rust
 ENV RUSTUP_HOME=$HOME/bin/rustup
