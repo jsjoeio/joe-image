@@ -55,6 +55,10 @@ https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz 
   --exclude README.md \
   --strip-components 1 -C /usr/local/
 
+# Need to set user before installing global dependencies
+# https://stackoverflow.com/a/45505787
+RUN npm -g config set user root
+
 # Install zsh theme/prompt
 RUN npm install --global pure-prompt 
 
