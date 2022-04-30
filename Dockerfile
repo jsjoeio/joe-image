@@ -55,6 +55,9 @@ https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz 
   --exclude README.md \
   --strip-components 1 -C /usr/local/
 
+# Install zsh theme/prompt
+RUN npm install --global pure-prompt 
+
 # Install the Yarn package manager
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
