@@ -60,7 +60,8 @@ https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz 
 RUN npm -g config set user root
 
 # Install zsh theme/prompt
-RUN npm install --global pure-prompt 
+# workaround: https://github.com/sindresorhus/pure/issues/610#issuecomment-922121006
+RUN npm install --global --allow-root --unsafe-perm=true pure-prompt 
 
 # Install the Yarn package manager
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
