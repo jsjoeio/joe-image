@@ -55,14 +55,6 @@ https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz 
   --exclude README.md \
   --strip-components 1 -C /usr/local/
 
-# Need to set user before installing global dependencies
-# https://stackoverflow.com/a/45505787
-RUN npm -g config set user root
-
-# Install zsh theme/prompt
-# workaround: https://github.com/sindresorhus/pure/issues/610#issuecomment-922121006
-RUN npm install --global --allow-root --unsafe-perm=true pure-prompt 
-
 # Install the Yarn package manager
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
