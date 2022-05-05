@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y \
   jq 
 
 # Install the desired Node.js version into `/usr/local/`
-ENV NODE_VERSION=14.17.6
+ENV NODE_VERSION=16.15.0
 RUN curl \
 https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz \
  | tar xzfv - \
